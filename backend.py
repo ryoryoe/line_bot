@@ -113,6 +113,7 @@ def reply_message(user_id, text):
     response = requests.post(push_url, headers=headers, json=data)
     print(f"送信: {user_id}, ステータス: {response.status_code}, 内容: {response.text}")
 
+@app.route("/check_and_send_messages", methods=["POST"])
 def check_and_send_messages():
     """
     その日に返信がないユーザーに3時間おきにメッセージを送信する
@@ -168,6 +169,7 @@ def get_tomorrow_unwanted_meals(target_date: datetime.date) -> dict:
                 result[user_part].append(meal_part)
     return result
 
+@app.route("/send_tommorow_info", methods=["POST"])
 def send_tomorrow_info():
     """
     毎日18:00に、翌日に不要なご飯(朝/昼/夜)が登録されているユーザーをまとめてLINEに通知する
